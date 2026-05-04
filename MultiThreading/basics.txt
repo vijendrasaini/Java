@@ -1,0 +1,51 @@
+1. Process vs Thread
+2. context switching
+3. How to create Thread
+4. thread life cycle
+
+
+Process : A program in execution
+
+Thread : A smallest piece of program ( a smallest set of intructions ) that can be exectued by CPU
+indepedently
+
+
+Memory Layout : 
+
+---------------------------------------
+|               Heap 
+|
+---------------------------------------
+|              Method area ( meta data )
+| 
+----------------------------------------
+|     Thread 1       | Thread 2   
+|                    |
+|     Registers      |  Registers
+|                    |
+|     PC register    |  PC register
+|                    |
+|                    |
+|                    |
+----------------------------------------
+
+context switching
+
+CPU ( 1 core )
+Th1 | th2 | th1 | th2 ( secquential thread execution )
+
+
+CPU ( multi core )
+Parallelism
+Th1 ------> ------> 
+th2 ------> ------> 
+
+Nature of Threads : 
+Non-determiansm
+
+Which thread will be exectued it's decied by CPU. As a java developer ( JVM ), we don't have any
+idea on this. 
+There are algos which decide threads order : 
+    -> Round robin
+    -> time slicy
+    -> priority
