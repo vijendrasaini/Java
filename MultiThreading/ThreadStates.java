@@ -12,7 +12,7 @@ public class ThreadStates {
             t1.start();
     
             System.out.println("Thread Status : " + t1.getState());
-            t1.sleep(2000);
+            Thread.sleep(2000);
         } catch(InterruptedException e) {
             System.out.println(e.getMessage());
         }

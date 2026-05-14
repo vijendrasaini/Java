@@ -1,3 +1,28 @@
+Simplest Difference
+Topic	Concern
+JVM Memory Areas	Physical/runtime memory organization
+JMM	Thread interaction rules
+
+Runtime Areas	JMM
+Stores data	Controls thread observation of data
+
+JVM Memory Areas
+Where things live
+JMM
+How threads see and communicate changes
+
+Java Memory Model (JMM) is:
+
+A specification that defines how threads interact through memory.
+
+               Main Memory
+                     |
+        ----------------------------
+        |                          |
+  Thread 1                   Thread 2
+ Working Memory             Working Memory
+
+ 
 JMM is basically:
 
 A rulebook controlling:
