@@ -1,7 +1,8 @@
 package LockFreeConcurrency;
 
 import java.util.concurrent.atomic.AtomicReference;
-public class AtomicReferenceDemo {
+
+public class AtomicReferenceDemo2 {
 
     static AtomicReference<Integer> likes = new AtomicReference<>(0);
 
@@ -17,32 +18,33 @@ public class AtomicReferenceDemo {
                     doLike();
                 }
 
-            }, "TH-" + i);
+            }, "TH-" + (i + 1));
 
             threads[i].start();
         }
 
+        // Wait for all threads to finish
         for (Thread thread : threads) {
             thread.join();
         }
 
-        System.out.println("Total likes : " + likes.get());
+        System.out.println("\nFinal Total Likes : " + likes.get());
     }
 
     static void doLike() {
-        // retry loop
+
         int retries = 0;
+
+        // CAS Retry Loop
         while (true) {
 
-            int expectedValue = likes.get(); 
+            Integer expectedValue = likes.get();
 
-/*
-AtomicReference.compareAndSet() compares object references, not values. Using primitive int with AtomicReference<Integer> causes auto-boxing/unboxing, which may create different Integer objects and break CAS reference equality expectations.
-*/
+            Integer newValue = expectedValue + 1;
 
-            int newValue = expectedValue + 1;
-
+            // CAS Operation
             if (likes.compareAndSet(expectedValue, newValue)) {
+
                 // Optional logging for understanding retries
                 if (retries > 0) {
                     System.out.println(
@@ -55,8 +57,8 @@ AtomicReference.compareAndSet() compares object references, not values. Using pr
                 return;
             }
 
+            // CAS Failed → Retry
             retries++;
-            // Keep Continue; As CAS failed
         }
     }
 }
