@@ -5,19 +5,22 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AtomicReferenceDemo {
     static AtomicReference<Integer> likes = new AtomicReference<>(0);
 
-    public static void main(String[] args) {
-        for(int i = 1; i <= 10; i++) {
-            Thread th = new Thread(() -> {
+    public static void main(String[] args) throws InterruptedException{
+        Thread[] threads = new Thread[10];
+        for(int i = 0; i < 10; i++) {
+            threads[i] = new Thread(() -> {
                 for(int j = 0; j < 100; j++) {
                     doLike();
                 }
             }, "TH-" + i);
 
-            th.start();
+            threads[i].start();
         }
 
-        int sleepTime = 5000;
-        System.out.println(Thread.currentThread().getName() + " is sleeping for " + sleepTime + " secs");
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        
         System.out.println("Total likes : " + likes.get());
     }
 
@@ -29,11 +32,14 @@ public class AtomicReferenceDemo {
             int newValue = expectedValue + 1;
 
             if(likes.compareAndSet(expectedValue, newValue)) {
+                if(i > 0) {
+                    System.out.println("CAS succeeded for thread : " + Thread.currentThread().getName() + " in " + i + "-th iteration");
+                }
                 break;
             }
 
+            i++;
             // Keep Continue; As CAS failed
-            System.out.println("CAS Failed when Thread " + Thread.currentThread().getName() + " was liking in " + i + "-th iteration");
         }
     }
 }
