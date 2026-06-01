@@ -1,4 +1,4 @@
-package Streams;
+package Streams.IntermediateMethods;
 
 import java.util.List;
 import java.util.stream.Stream;
