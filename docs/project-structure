@@ -1,0 +1,24 @@
+Recommended Learning Order
+1. Java Project Structure
+2. Maven
+3. Logging
+4. Configuration Files
+5. Git
+6. JUnit
+7. Mockito
+8. Dependency Injection
+9. Spring Boot
+10. Database (JPA/Hibernate)
+11. REST APIs
+12. Security
+
+
+For someone with your background (Java + 50% LLD + PHP backend experience), I'd start with:
+Project Structure → Maven → Logging → JUnit → Dependency Injection
+These four topics will immediately make your Java code look much closer to production-grade code.
+
+
+A package should group classes having similar responsibility.
+
+Do not place classes based on name.
+Place them based on responsibility.

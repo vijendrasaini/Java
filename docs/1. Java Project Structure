@@ -1,0 +1,97 @@
+A package should group classes having similar responsibility.
+
+Do not place classes based on name.
+Place them based on responsibility.
+
+
+We prioritize testing Service layer most because it contains business logic,
+followed by Controller for request/response flow,
+then Repository for data access correctness,
+and finally Model classes are rarely tested as they usually contain no logic.
+
+
+Topic: Why Maven Exists (VERY IMPORTANT)
+Maven is a build + dependency management tool that standardizes Java project structure and automates compilation, testing, and packaging.
+
+Maven removes manual dependency management and automates build lifecycle (compile → test → package → deploy).
+
+Maven must be installed and added to system PATH so the 'mvn' command works in terminal.
+
+MAVEN_HOME must point to Maven installation folder and PATH must include Maven bin directory.
+
+If mvn -version works, the system is ready to create, build, and manage Maven-based Java projects.
+
+Confirming Maven archetype generation creates the full project structure with defined groupId, artifactId, version, and default Java setup including JUnit dependency for testing.
+
+Maven generates a standard structure with production code under src/main/java and test code under src/test/java.
+
+Topic: pom.xml (VERY IMPORTANT)
+
+pom.xml is the configuration file that tells Maven how to build the project and what dependencies it needs.
+
+groupId = organization identity
+artifactId = project name
+version = project version (SNAPSHOT means under development)
+
+
+Maven reads pom.xml to download dependencies, compile code, run tests, and build final artifacts automatically.
+
+pom.xml is the central configuration file of a Maven project that defines project metadata (groupId, artifactId, version) and manages dependencies and build behavior.
+pom.xml = dependencies + project identity + build instructions
+
+
+In real Java projects, code is organized into packages based on responsibility: controller, service, repository, model, dto, and exception.
+
+Model classes represent the core business data of the application. They are independent of business logic and typically map to database tables in persistence layers (like JPA/Hibernate).
+
+Correct Mental Model
+Book class = data representation
+Book
+→ just holds state (data)
+→ no business decisions
+
+A model class represents core application data and is not necessarily tied to a database table; it becomes a DB entity only when used with persistence frameworks like JPA/Hibernate.
+
+Service layer contains business logic and rules of the application. It orchestrates operations between controller, repository, and model, ensuring that business rules are enforced.
+
+What Service Layer REALLY means
+Service = Brain of business logic
+
+It decides:
+
+Can this action happen?
+What validations are needed?
+What sequence of operations should be executed?
+
+Service layer contains business logic and coordinates between controller and repository to enforce application rules.
+
+Key Insight (VERY IMPORTANT)
+
+👉 Controller = receives request
+👉 Service = decides what should happen
+👉 Repository = performs data operation
+
+Service layer performs validations, applies business rules, interacts with repository for data operations, and returns a meaningful result to the controller.
+
+Service layer validates inputs, applies business rules, coordinates repository calls, and returns a meaningful response or exception to the controller.
+
+In service layer, business rule violations are typically handled using exceptions rather than return values, to clearly separate normal flow from error flow.
+
+Service layer uses exceptions to handle business rule violations, ensuring clear separation between successful flow and error scenarios.
+
+Custom exceptions extend RuntimeException to represent business rule violations in service layer.
+
+In-memory repository uses Map/List to simulate database behavior for learning purposes.
+
+Service layer handles full business workflow: validation, rule enforcement, state change, and coordination with repository.
+
+Maven compiles code, but execution of Java applications is done using the java command on compiled classes.
+
+
+Repository abstracts data storage and provides methods to save and retrieve domain objects.
+
+Service layer now handles multi-entity workflow (User + Book) and manages full lifecycle of issue and return operations.
+
+DTOs are used to transfer data between layers without exposing internal domain models directly.
+
+Service layer should work with request and response DTOs to ensure clean separation between API layer and internal domain models.
