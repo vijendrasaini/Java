@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 
 public class ZonePlayground {
     public static void main(String[] args) throws InterruptedException{
-        // Instant now = Instant.now();
+        Instant now = Instant.now();
         // System.out.println(now);
 
         // ZoneId india = ZoneId.of("Asia/Kolkata");
